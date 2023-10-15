@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.25.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.15.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.22.2"></script>
+</head>
+<body>
+  <div id="vis"/>
+  <script>
+    const spec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Fire accident in Australia 2019 - 2020 ",
+    "anchor": "middle",
+    "fontSize": 16,
+    "offset": 10
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/TonySzjs/FIT3179TS/main/fire_nrt_M6_96619.csv"
+  },
+  "vconcat": [
+    {
+      "width": 800,
+      "height": 400,
+      "layer": [
+        {
+          "data": {
+            "url": "https://raw.githubusercontent.com/TonySzjs/FIT3179TS/main/ne_110m_admin_0_countries%20(1).json",
+            "format": {
+              "type": "topojson",
+              "feature": "ne_110m_admin_0_countries"
+            }
+          },
+          "projection": {"type": "mercator"},
+          "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"}
+        },
+        {
+          "mark": {"type": "circle", "tooltip": {"content": "data"}},
+          "encoding": {
+            "longitude": {"field": "longitude", "type": "quantitative"},
+            "latitude": {"field": "latitude", "type": "quantitative"},
+            "size": {
+              "field": "frp",
+              "type": "quantitative",
+              "title": "Fire Radiative Power",
+              "scale": {"domain": [0, 5000]},
+              "legend": {"format": ".1s"}
+            },
+            "color": {
+              "field": "brightness",
+              "type": "quantitative",
+              "title": "Brightness temperature",
+              "scale": {"scheme": "reds"}
+            },
+            "tooltip": [
+              {"field": "longitude", "type": "quantitative"},
+              {"field": "latitude", "type": "quantitative"},
+              {
+                "field": "brightness",
+                "type": "quantitative",
+                "title": "Brightness temperature"
+              },
+              {
+                "field": "frp",
+                "type": "quantitative",
+                "title": "Radiative Power"
+              },
+              {"field": "daynight", "type": "nominal"}
+            ]
+          },
+          "params": [
+            {
+              "name": "daynight_selection",
+              "select": {"type": "point", "fields": ["daynight"]},
+              "bind": {
+                "input": "select",
+                "options": [null, "D", "N"],
+                "labels": ["Show All", "Day", "Night"],
+                "name": "Day/Night Selection"
+              }
+            }
+          ]
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "I think some parts of Australia are prone to large fires and"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 20
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "some areas are prone to smaller fires. From the map on the"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 40
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "right, we can see that the lower right and lower left of Australia"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 60
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "(from Victoria to parts of New South Wales and parts of Western"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 80
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "Australia) have a large number of dark red dots, which indicates"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 100
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "that these two areas have had many large fires, while other areas"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 120
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "usually have smaller and lighter dots, indicating that the volume"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 140
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "of fires may be smaller, but the number is not small. I think we"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 160
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "have a lot of big fires in Western Australia probably because"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 180
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "there's a lot of forest in that area and it's prone to fires. Victoria,"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 200
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "Australian Capital Territory and New South Wales often have large"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 220
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "fires, which may also be due to the nearby forests, but I think it may"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 240
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "be because there are three cities with a large number of residents,"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 260
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "Melbourne, Sydney and Canberra, after all, in addition to"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 280
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "spontaneous bushfires, it may also be man-made accidental fires,"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 300
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "and a large number of people will increase the probability of fire."
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 320
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "So we should increase the awareness of fire prevention to avoid"
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 340
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "text": "this kind of thing.                                           "
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "x": 20,
+            "y": 360
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [{"text": "I believe the temperature in summer may "}]
+          },
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "x": 660,
+            "y": 20
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [{"text": "cause the fire accident’s amount increase "}]
+          },
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "x": 660,
+            "y": 40
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [{"text": "and make the fire damage is more serious. "}]
+          },
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "x": 660,
+            "y": 60
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [{"text": "In the two bar chart below, we can see "}]
+          },
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "x": 660,
+            "y": 80
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [{"text": "there are several data are very stand out "}]
+          },
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "x": 660,
+            "y": 100
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [{"text": "which means they got high on brightness "}]
+          },
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "x": 660,
+            "y": 120
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [{"text": "temperature and fire radiative power, this "}]
+          },
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "x": 660,
+            "y": 140
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {"text": "means they are several terrible fire accidents.  "}
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "x": 660,
+            "y": 160
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [{"text": "And we can see the dates are almost between "}]
+          },
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "x": 660,
+            "y": 180
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {"text": "From December to January, it is exactly summer. "}
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "x": 660,
+            "y": 200
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [{"text": "This shows Summer does make fires more "}]
+          },
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "x": 660,
+            "y": 220
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {
+            "values": [
+              {"text": "common. I urge Australians to pay more attention "}
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "x": 660,
+            "y": 240
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        },
+        {
+          "data": {"values": [{"text": "to fire prevention in summer. "}]},
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "x": 660,
+            "y": 260
+          },
+          "encoding": {"text": {"field": "text", "type": "nominal"}}
+        }
+      ]
+    },
+    {
+      "hconcat": [
+        {
+          "width": 400,
+          "height": 200,
+          "mark": "bar",
+          "encoding": {
+            "x": {
+              "field": "acq_date",
+              "type": "nominal",
+              "axis": {"title": "Date"}
+            },
+            "y": {
+              "field": "frp",
+              "type": "quantitative",
+              "axis": {"title": "Fire Radiative Power (megawatts)"}
+            }
+          },
+          "transform": [{"filter": "datum.frp > 3000"}]
+        },
+        {
+          "width": 400,
+          "height": 200,
+          "mark": "bar",
+          "encoding": {
+            "x": {
+              "field": "acq_date",
+              "type": "nominal",
+              "axis": {"title": "Date"}
+            },
+            "y": {
+              "field": "brightness",
+              "type": "quantitative",
+              "axis": {"title": "Brightness temperature (Kelvin)"}
+            }
+          },
+          "transform": [{"filter": "datum.brightness > 500"}]
+        }
+      ]
+    }
+  ],
+  "config": {}
+};
+    vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+  </script>
+</body>
+</html>
